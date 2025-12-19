@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>V2Ray Keys</title>
+  <meta name="description" content="Copy V2Ray keys and download recommended apps." />
+  <style>
+    :root{
+      --bg:#0b1220; --card:#0f1b34; --muted:#9fb0d0; --text:#eaf0ff;
+      --btn:#2b67ff; --btn2:#1d2b4d; --ok:#21c17a; --danger:#ff5c7a;
+      --border:rgba(255,255,255,.10);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: radial-gradient(1200px 600px at 20% 0%, rgba(43,103,255,.35), transparent 60%),
+                  radial-gradient(900px 500px at 90% 10%, rgba(33,193,122,.20), transparent 60%),
+                  var(--bg);
+      color:var(--text);
+    }
+    .wrap{max-width:920px; margin:0 auto; padding:28px 16px 40px}
+    header{
+      display:flex; gap:14px; align-items:center; justify-content:space-between; flex-wrap:wrap;
+      margin-bottom:18px;
+    }
+    .title h1{font-size:22px; margin:0}
+    .title p{margin:6px 0 0; color:var(--muted); font-size:13px}
+    .chip{
+      padding:8px 10px; border:1px solid var(--border); border-radius:999px;
+      background: rgba(255,255,255,.04); color:var(--muted); font-size:12px;
+    }
+    .grid{display:grid; grid-template-columns:1fr; gap:14px}
+    @media (min-width: 820px){ .grid{grid-template-columns:1.3fr .7fr} }
+
+    .card{
+      border:1px solid var(--border);
+      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+      border-radius:18px; padding:16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.25);
+    }
+    .card h2{margin:0 0 12px; font-size:16px}
+    .row{display:flex; gap:10px; align-items:center; flex-wrap:wrap}
+
+    .keybox{
+      width:100%;
+      padding:12px 12px;
+      border-radius:12px;
+      border:1px solid var(--border);
+      background: rgba(0,0,0,.25);
+      color:var(--text);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size:12.5px;
+      line-height:1.35;
+      min-height:44px;
+      resize: vertical;
+    }
+    .btn{
+      cursor:pointer; border:1px solid var(--border);
+      padding:10px 12px; border-radius:12px;
+      background: var(--btn2); color:var(--text);
+      font-weight:600; font-size:13px;
+      transition: transform .06s ease, background .15s ease;
+      user-select:none;
+    }
+    .btn:hover{background: rgba(43,103,255,.25)}
+    .btn:active{transform: translateY(1px)}
+    .btn.primary{background: var(--btn); border-color: rgba(43,103,255,.65)}
+    .btn.primary:hover{background: #255cf0}
+    .btn.success{background: rgba(33,193,122,.18); border-color: rgba(33,193,122,.35)}
+    .btn.success:hover{background: rgba(33,193,122,.26)}
+    .hint{color:var(--muted); font-size:12px; margin-top:8px}
+    .status{
+      margin-top:10px;
+      font-size:12px;
+      color:var(--muted);
+      display:flex; align-items:center; gap:8px;
+    }
+    .dot{width:8px; height:8px; border-radius:99px; background: rgba(255,255,255,.22)}
+    .dot.ok{background: var(--ok)}
+    .dot.bad{background: var(--danger)}
+    .apps a{display:flex; justify-content:space-between; align-items:center; gap:10px; text-decoration:none}
+    .apps .app{padding:12px; border-radius:14px; border:1px solid var(--border); background: rgba(0,0,0,.18)}
+    .apps .app strong{display:block; font-size:14px}
+    .apps .app span{display:block; color:var(--muted); font-size:12px; margin-top:4px}
+    footer{margin-top:16px; color:var(--muted); font-size:12px; text-align:center}
+    code.inline{background: rgba(0,0,0,.25); border:1px solid var(--border); padding:2px 6px; border-radius:8px}
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header>
+      <div class="title">
+        <h1>V2Ray Keys</h1>
+        <p>Tap copy → paste into your client. (Works on mobile too.)</p>
+      </div>
+      <div class="chip">Last updated: <span id="updatedAt">—</span></div>
+    </header>
+
+    <div class="grid">
+      <!-- LEFT: KEYS -->
+      <section class="card">
+        <h2>Keys</h2>
+
+        <div class="card" style="padding:14px; margin-bottom:12px;">
+          <div class="row" style="justify-content:space-between;">
+            <strong>Key 1</strong>
+            <button class="btn success" data-copy="#key1">Copy</button>
+          </div>
+          <textarea id="key1" class="keybox" spellcheck="false" readonly>
+vless://YOUR-UUID@your-domain.com:443?encryption=none&security=tls&type=ws&host=your-domain.com&path=%2Fws#Key1
+          </textarea>
+          <div class="hint">Tip: You can replace this with your real VLESS/VMESS/Trojan URL.</div>
+        </div>
+
+        <div class="card" style="padding:14px;">
+          <div class="row" style="justify-content:space-between;">
+            <strong>Key 2</strong>
+            <button class="btn success" data-copy="#key2">Copy</button>
+          </div>
+          <textarea id="key2" class="keybox" spellcheck="false" readonly>
+vmess://PASTE-YOUR-BASE64-VMESS-HERE
+          </textarea>
+          <div class="hint">You can also use a subscription URL here if you want.</div>
+        </div>
+
+        <div class="status" id="status">
+          <span class="dot" id="dot"></span>
+          <span id="statusText">Ready.</span>
+        </div>
+      </section>
+
+      <!-- RIGHT: DOWNLOADS -->
+      <aside class="card">
+        <h2>Apps</h2>
+
+        <div class="apps" style="display:grid; gap:10px;">
+          <div class="app">
+            <strong>Outline APK</strong>
+            <span>Recommended for simple proxy setups.</span>
+            <a class="btn primary" href="https://getoutline.org/" target="_blank" rel="noopener">
+              Download <span aria-hidden="true">↗</span>
+            </a>
+          </div>
+
+          <div class="app">
+            <strong>Nekohasekai (NekoRay / NekoBox)</strong>
+            <span>Great for V2Ray/Xray configs.</span>
+            <!-- Replace with your preferred link (GitHub releases etc.) -->
+            <a class="btn primary" href="https://github.com/MatsuriDayo/NekoBoxForAndroid/releases" target="_blank" rel="noopener">
+              Download <span aria-hidden="true">↗</span>
+            </a>
+          </div>
+
+          <div class="app">
+            <strong>Other</strong>
+            <span>Add your own APK links / instructions here.</span>
+            <button class="btn" id="shareBtn">Share this page</button>
+          </div>
+        </div>
+
+        <p class="hint" style="margin-top:12px;">
+          If you host your own APK files, upload them to GitHub Releases and replace links with
+          <code class="inline">/files/app.apk</code> or your release URL.
+        </p>
+      </aside>
+    </div>
+
+    <footer>
+      Simple static site — deploy on GitHub Pages or Vercel.
+    </footer>
+  </div>
+
+  <script>
+    const updatedAt = document.getElementById("updatedAt");
+    updatedAt.textContent = new Date().toLocaleString();
+
+    const dot = document.getElementById("dot");
+    const statusText = document.getElementById("statusText");
+
+    function setStatus(msg, ok=true){
+      statusText.textContent = msg;
+      dot.className = "dot " + (ok ? "ok" : "bad");
+      clearTimeout(window.__statusTimer);
+      window.__statusTimer = setTimeout(() => {
+        statusText.textContent = "Ready.";
+        dot.className = "dot";
+      }, 2500);
+    }
+
+    async function copyFromSelector(sel){
+      const el = document.querySelector(sel);
+      const text = (el.value ?? el.textContent ?? "").trim();
+      if(!text) return setStatus("Nothing to copy.", false);
+
+      try{
+        await navigator.clipboard.writeText(text);
+        setStatus("Copied to clipboard ✅", true);
+      }catch(e){
+        // Fallback
+        try{
+          el.focus();
+          el.select();
+          document.execCommand("copy");
+          setStatus("Copied (fallback) ✅", true);
+        }catch(err){
+          setStatus("Copy failed. Please copy manually.", false);
+        }
+      }
+    }
+
+    document.addEventListener("click", (ev) => {
+      const btn = ev.target.closest("[data-copy]");
+      if(!btn) return;
+      copyFromSelector(btn.getAttribute("data-copy"));
+    });
+
+    // Share button (mobile friendly)
+    document.getElementById("shareBtn").addEventListener("click", async () => {
+      const url = location.href;
+      try{
+        if(navigator.share){
+          await navigator.share({ title: document.title, url });
+          setStatus("Shared ✅", true);
+        }else{
+          await navigator.clipboard.writeText(url);
+          setStatus("Link copied ✅", true);
+        }
+      }catch(e){
+        setStatus("Share cancelled.", false);
+      }
+    });
+  </script>
+</body>
+</html>
