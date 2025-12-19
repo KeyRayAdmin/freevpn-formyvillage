@@ -1,0 +1,13 @@
+{
+  "updatedAt": "2025-01-19 22:30",
+  "keys": [
+    {
+      "name": "Key 1",
+      "value": "vless://UUID@domain.com:443?type=ws&security=tls#Key1"
+    },
+    {
+      "name": "Key 2",
+      "value": "vmess://BASE64STRING"
+    }
+  ]
+}
