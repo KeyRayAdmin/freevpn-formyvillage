@@ -169,6 +169,26 @@
   </div>
 
   <script>
+
+    async function loadKeys(){
+  try{
+    const res = await fetch("/keys.json", { cache: "no-store" });
+    const data = await res.json();
+
+    document.getElementById("updatedAt").textContent =
+      data.updatedAt || new Date().toLocaleString();
+
+    data.keys.forEach((k, i) => {
+      const el = document.getElementById(`key${i+1}`);
+      if(el) el.value = k.value;
+    });
+
+  }catch(e){
+    setStatus("Failed to load keys", false);
+  }
+}
+
+loadKeys();
     const updatedAt = document.getElementById("updatedAt");
     updatedAt.textContent = new Date().toLocaleString();
 
